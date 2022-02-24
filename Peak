@@ -1,0 +1,96 @@
+
+package peak;
+class FindPeak
+{
+    //fields----------------
+    private int[] arr;
+    private int nElems;
+            
+    //creation--------------
+    public FindPeak(int max)
+    {
+        arr = new int[max];
+        nElems =0;
+    }
+    
+    //display-------------------
+    public void insert(int value)
+    {
+        arr[nElems] = value;
+        nElems++;
+    }
+    
+    //condition-----------------
+    //private boolean coundition()
+    
+    //find------------------
+    public int findPeak()
+    {
+        int i;
+                                //If the vertex is at 0 it will not enter the loop,
+                                //And if it is not, then we are sure that arr[i]>=arr[i-1] , 
+                                //If it exits the loop it means that the vertex is at the end. 
+        for(i=0;i<nElems-1;i++)
+        {
+            if(arr[i]>=arr[i+1])
+            {
+                break;
+            }
+        }
+        return i;
+    }
+    
+    public int smartFindPeak()
+    {
+        int lowerBound =0;
+        int upperBound =nElems-1;
+        int current;
+        while(true)
+        {
+            current = (lowerBound + upperBound)/2;
+            if(arr[current] > arr[current+1] && arr[current] > arr[current-1])
+            {
+                return current;
+            }
+            
+            else if(arr[current] < arr[current+1])
+            {
+                lowerBound = current + 1;
+            }
+            else if((arr[current] < arr[current-1]))
+            {
+                upperBound = current -1; 
+            }
+            
+//            if(lowerBound > upperBound)
+//            {
+//                return nElems;
+//            }
+        }
+    }
+    
+}
+public class Peak 
+{
+    public static void main(String[] args) 
+    {
+        int size = 100;
+        FindPeak array;
+        array = new FindPeak(size);
+        
+        array.insert(0);
+        array.insert(3);
+        array.insert(5);
+        array.insert(6);
+        array.insert(8);
+        array.insert(9);
+        array.insert(10);
+        array.insert(11);
+        array.insert(12);
+        array.insert(1);
+        
+        System.out.print(array.smartFindPeak());
+        
+    }
+    
+}
